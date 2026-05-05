@@ -1,7 +1,5 @@
 # 💰 iponTayo v1.5
 
-iponTayo is a modern savings tracker web application that helps users manage their financial goals, track contributions, and stay motivated.
-
 ---
 
 ## 🚀 Features
