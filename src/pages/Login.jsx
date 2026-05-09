@@ -5,6 +5,9 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useState } from "react";
 
+import sidePhoto from "../assets/sidephoto.png";
+
+
 export default function Login() {
   const { user, login, loginWithGoogle, forgotPassword } = useAuth();
   const navigate = useNavigate();
@@ -20,16 +23,12 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* LEFT SIDE */}
-      <div className="hidden md:flex w-1/2 bg-gradient-to-br from-[#21B37A] to-[#159A6A] items-center justify-center p-10">
-        <div className="text-center text-white max-w-sm">
-          <h1 className="text-4xl font-bold">
-            IPONTAYO
-          </h1>
-
-          <p className="mt-4 text-sm opacity-90">
-            Tara iponTayo! 
-          </p>
-        </div>
+      <div
+  className="hidden md:flex w-1/2 items-center justify-center p-10 bg-cover bg-center relative"
+  style={{
+    backgroundImage: `url(${sidePhoto})`,
+  }}
+>
       </div>
 
       {/* RIGHT SIDE */}

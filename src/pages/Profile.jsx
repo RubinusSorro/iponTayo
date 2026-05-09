@@ -7,10 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { plans } = useApp();
-  const { user, logout, updateProfile, forgotPassword, theme, changeTheme, deleteAccount } = useAuth();
+  const { user, logout, forgotPassword, theme, changeTheme, deleteAccount } = useAuth();
   const navigate = useNavigate();
 
-  const [showEditProfile, setShowEditProfile] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
 
   const isDark = theme === "dark";
@@ -22,11 +21,14 @@ export default function Profile() {
   const mutedText = isDark ? "text-gray-300" : "text-gray-500";
   const mainText = isDark ? "text-white" : "text-[#1C1C1C]";
 
-  const [profileForm, setProfileForm] = useState({
-    firstName: user?.firstName || "",
-    lastName: user?.lastName || "",
-    email: user?.email || "",
-  });
+  const getMemberSinceDate = () => {
+    if (!user?.metadata?.creationTime) return "";
+    const date = new Date(user.metadata.creationTime);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   const [passwordForm, setPasswordForm] = useState({
     oldPassword: "",
@@ -72,66 +74,9 @@ export default function Profile() {
               {user?.email}
             </p>
 
-            <button
-              onClick={() => setShowEditProfile(!showEditProfile)}
-              className={`mt-5 rounded-xl border px-5 py-3 text-sm font-semibold ${
-                isDark
-                  ? "border-white/20 text-white hover:bg-white/10"
-                  : "border-black/20 text-[#1C1C1C] hover:bg-black/5"
-              }`}
-            >
-              Edit profile
-            </button>
-
-            {showEditProfile && (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-
-                  updateProfile(profileForm);
-                  toast.success("Profile updated!");
-                  setShowEditProfile(false);
-                }}
-                className="mt-6 space-y-4"
-              >
-                <input
-                  type="text"
-                  placeholder="First name"
-                  value={profileForm.firstName}
-                  onChange={(e) =>
-                    setProfileForm({ ...profileForm, firstName: e.target.value })
-                  }
-                  className="w-full rounded-xl border border-black/10 bg-[#F8F5F0] px-4 py-3 text-sm text-[#1C1C1C] outline-none"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Last name"
-                  value={profileForm.lastName}
-                  onChange={(e) =>
-                    setProfileForm({ ...profileForm, lastName: e.target.value })
-                  }
-                  className="w-full rounded-xl border border-black/10 bg-[#F8F5F0] px-4 py-3 text-sm text-[#1C1C1C] outline-none"
-                />
-
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={profileForm.email}
-                  onChange={(e) =>
-                    setProfileForm({ ...profileForm, email: e.target.value })
-                  }
-                  className="w-full rounded-xl border border-black/10 bg-[#F8F5F0] px-4 py-3 text-sm text-[#1C1C1C] outline-none"
-                />
-
-                <button
-                  type="submit"
-                  className="w-full rounded-xl bg-[#21B37A] py-3 text-sm font-bold text-white"
-                >
-                  Save profile
-                </button>
-              </form>
-            )}
+            <p className={`mt-5 text-sm ${mutedText}`}>
+              Member since {getMemberSinceDate()}
+            </p>
           </div>
 
             <div className={`mt-8 space-y-4 border-t pt-5 ${isDark ? "border-white/10" : "border-black/10"}`}>
