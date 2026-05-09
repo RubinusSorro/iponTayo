@@ -101,23 +101,40 @@ export default function Profile() {
 
         {/* Settings */}
         <div className="space-y-4">
-          <div className={`rounded-2xl border p-6 shadow-sm ${cardClass}`}>
-            <div className="mb-5 flex items-center gap-3">
-              <Bell className="text-[#21B37A]" />
-              <div>
-                <h2 className={`text-lg font-bold ${mainText}`}>
-                  Notifications(NOT FUNCTIONAL YET)
-                </h2>
-                <p className={`text-sm ${mutedText}`}>
-                  Control your savings reminders.
-                </p>
+          <div className="relative">
+            <div className={`rounded-2xl border p-6 shadow-sm ${cardClass}`}>
+              <div className="mb-5 flex items-center gap-3">
+                <Bell className="text-[#21B37A]" />
+                <div>
+                  <h2 className={`text-lg font-bold ${mainText}`}>
+                    Notifications
+                  </h2>
+                  <p className={`text-sm ${mutedText}`}>
+                    Control your savings reminders.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <SettingRow title="Monthly reminder" active />
+                <SettingRow title="Goal progress alerts" active />
+                <SettingRow title="Slow progress warning" />
               </div>
             </div>
 
-            <div className="space-y-4">
-              <SettingRow title="Monthly reminder" active />
-              <SettingRow title="Goal progress alerts" active />
-              <SettingRow title="Slow progress warning" />
+            <div className={`absolute inset-0 rounded-2xl backdrop-blur-sm flex items-center justify-center ${
+              isDark 
+                ? "bg-black/40" 
+                : "bg-white/40"
+            }`}>
+              <div className="text-center">
+                <h3 className={`text-2xl font-bold mb-2 ${mainText}`}>
+                  Coming soon
+                </h3>
+                <p className={`text-sm ${mutedText}`}>
+                  Notifications are currently under development.
+                </p>
+              </div>
             </div>
           </div>
 
